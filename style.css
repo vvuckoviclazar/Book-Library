@@ -8,3 +8,57 @@
 html {
   font-size: 6.25%;
 }
+
+body {
+  background: linear-gradient(to top, #cecfd0, #053d60);
+
+  min-height: 100vh;
+}
+
+.container {
+  margin: 0rem auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 60rem;
+  color: white;
+  margin-bottom: 20rem;
+  padding-top: 150rem;
+}
+
+h2 {
+  font-size: 35rem;
+  color: white;
+  font-weight: 300;
+  margin-bottom: 15rem;
+}
+
+.addBtn {
+  border: none;
+  font-size: 25rem;
+  padding: 14rem 24rem 14rem 24rem;
+  border-radius: 50rem;
+  font-weight: bold;
+  background-color: rgb(12, 45, 65);
+  color: white;
+}
+
+.addBtn:hover {
+  background-color: rgb(10, 42, 61);
+  color: rgb(224, 224, 224);
+}
+
+.footer {
+  color: rgb(82, 82, 82);
+  font-size: 20rem;
+  margin-top: 390rem;
+}
