@@ -7,6 +7,46 @@
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
+    <div class="overlay hidden">
+      <form>
+        <button class="btnX">✖️</button>
+        <div class="formDiv">
+          <label for="title">Title of the book:</label>
+          <input
+            type="text"
+            class="title"
+            name="title"
+            placeholder="Harry Potter"
+            required
+          />
+        </div>
+        <div class="formDiv">
+          <label for="author">Author:</label>
+          <input
+            type="text"
+            class="author"
+            name="author"
+            placeholder="J.K. Rowling"
+            required
+          />
+        </div>
+        <div class="formDiv">
+          <label for="pages">Number of pages:</label>
+          <input
+            type="number"
+            class="pages"
+            name="pages"
+            placeholder="500"
+            required
+          />
+        </div>
+        <div class="checkDiv">
+          <input type="checkbox" class="check" name="check" />
+          <label class="checkLabel" for="check">Have you read this book?</label>
+          <button type="submit" class="submitBtn">SUBMIT</button>
+        </div>
+      </form>
+    </div>
     <div class="container">
       <div class="instructions">
         <h1>Book library</h1>
@@ -14,7 +54,7 @@
           Use the button below to add to your library and watch your collection
           grow
         </h2>
-        <button class="addBtn">New Book</button>
+        <button class="newBtn">New Book</button>
       </div>
       <div class="bookDiv">
         <ul class="bookList"></ul>

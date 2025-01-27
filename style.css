@@ -26,6 +26,7 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 45rem;
 }
 
 h1 {
@@ -42,7 +43,7 @@ h2 {
   margin-bottom: 15rem;
 }
 
-.addBtn {
+.newBtn {
   border: none;
   font-size: 25rem;
   padding: 14rem 24rem 14rem 24rem;
@@ -52,7 +53,7 @@ h2 {
   color: white;
 }
 
-.addBtn:hover {
+.newBtn:hover {
   background-color: rgb(10, 42, 61);
   color: rgb(224, 224, 224);
 }
@@ -61,4 +62,149 @@ h2 {
   color: rgb(82, 82, 82);
   font-size: 20rem;
   margin-top: 390rem;
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-bottom: 50rem;
+}
+
+form {
+  background-color: rgb(232, 232, 237);
+  padding: 0rem 40rem 85rem 40rem;
+  width: 730rem;
+  border-radius: 20rem;
+}
+
+.formDiv {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  margin-bottom: 10rem;
+  align-items: center;
+}
+
+.checkDiv {
+  padding-top: 25rem;
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+}
+
+.submitBtn {
+  margin-left: 10rem;
+  font-weight: bold;
+  font-size: 20rem;
+  padding: 13rem 15rem 13rem 15rem;
+  border: none;
+  border-radius: 20rem;
+  background-color: rgb(12, 47, 69);
+  color: white;
+}
+
+label {
+  font-size: 25rem;
+}
+
+input {
+  font-size: 17rem;
+  padding: 12rem 12rem 12rem 10rem;
+  border: none;
+  border-radius: 10rem;
+}
+
+.check {
+  width: 22rem;
+  height: 22rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.btnX {
+  margin-left: 640rem;
+  border: none;
+  font-size: 35rem;
+  font-weight: 100;
+  border-radius: 50rem;
+  margin-bottom: 50rem;
+  padding-top: 5rem;
+  background-color: rgb(232, 232, 237);
+}
+
+.bookList {
+  list-style-type: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50rem;
+  justify-content: center;
+  align-items: start;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(232, 232, 237);
+  border-radius: 15rem;
+  padding: 40rem 55rem 40rem 55rem;
+  transition: transform 0.3s ease;
+}
+
+li:hover {
+  transform: scale(1.1);
+}
+
+.title-p {
+  font-size: 33rem;
+  margin-bottom: 15rem;
+}
+
+.author-p {
+  font-size: 30rem;
+  margin-bottom: 15rem;
+}
+
+.pages-p {
+  font-size: 26rem;
+  margin-bottom: 25rem;
+}
+
+.checkBtn {
+  font-weight: bold;
+  font-size: 17rem;
+  padding: 10rem 12rem 10rem 12rem;
+  border: none;
+  border-radius: 20rem;
+  background-color: rgb(12, 47, 69);
+  color: white;
+}
+
+.deleteBtn {
+  font-weight: bold;
+  font-size: 17rem;
+  padding: 11rem 12rem 11rem 12rem;
+  border: none;
+  border-radius: 20rem;
+  background-color: rgb(12, 47, 69);
+  color: white;
+}
+
+.checkBtn:hover,
+.deleteBtn:hover {
+  background-color: rgb(9, 37, 55);
+  color: rgb(229, 229, 229);
+}
+
+.cardBtns {
+  display: flex;
+  align-items: center;
+  gap: 30rem;
 }
