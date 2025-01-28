@@ -42,6 +42,7 @@ btnX.addEventListener("click", () => {
 function cardCreator(parametar) {
   let id = crypto.randomUUID();
   let isChecked = parametar;
+  let isEditing = false;
 
   const getId = () => id;
 
@@ -94,12 +95,13 @@ function createCard(id, isChecked) {
   card.id = id;
   card.classList.add("card");
   card.innerHTML = `
-  <p class="title-p"> ${titleText}</p>
+  <button class="editBtn">Edit</button>
+  <div class="textDiv"><p class="title-p"> ${titleText}</p>
   <p class="author-p">- ${authorName}</p>
   <p class="pages-p">${pagesNum} pages</p>
   <div class="cardBtns">
   <button class="checkBtn">${isChecked ? "Read ✔️" : "Unread ❌"}</button>
-  <button class="deleteBtn">Delete Book</button>
+  <button class="deleteBtn">Delete Book</button></div>
   `;
 
   return card;

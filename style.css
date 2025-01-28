@@ -149,12 +149,8 @@ input {
 }
 
 li {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   background-color: rgb(232, 232, 237);
   border-radius: 15rem;
-  padding: 40rem 55rem 40rem 55rem;
   transition: transform 0.3s ease;
 }
 
@@ -197,10 +193,33 @@ li:hover {
   color: white;
 }
 
+.textDiv {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0rem 50rem 40rem 50rem;
+}
+
+.editBtn {
+  font-weight: bold;
+  font-size: 20rem;
+  border: none;
+  background-color: rgb(232, 232, 237);
+  border-radius: 22rem;
+  padding: 10rem 10rem 0rem 0rem;
+  color: rgb(12, 47, 69);
+  margin-bottom: 25rem;
+  margin-left: 310rem;
+}
+
 .checkBtn:hover,
 .deleteBtn:hover {
   background-color: rgb(9, 37, 55);
   color: rgb(229, 229, 229);
+}
+
+.editBtn:hover {
+  text-decoration: 2rem underline rgb(9, 37, 55);
 }
 
 .cardBtns {
