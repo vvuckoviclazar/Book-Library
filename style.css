@@ -75,11 +75,20 @@ h2 {
   padding-bottom: 50rem;
 }
 
-form {
+.currentForm {
   background-color: rgb(232, 232, 237);
   padding: 0rem 40rem 85rem 40rem;
   width: 730rem;
   border-radius: 20rem;
+}
+
+.editingForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(232, 232, 237);
+  border-radius: 20rem;
+  padding: 0rem 20rem 65rem 20rem;
 }
 
 .formDiv {
@@ -212,13 +221,26 @@ li:hover {
   margin-left: 310rem;
 }
 
+.finishEditBtn {
+  font-weight: bold;
+  font-size: 20rem;
+  border: none;
+  background-color: rgb(232, 232, 237);
+  border-radius: 22rem;
+  padding: 10rem 10rem 0rem 0rem;
+  color: rgb(12, 47, 69);
+  margin-bottom: 25rem;
+  margin-left: 215rem;
+}
+
 .checkBtn:hover,
 .deleteBtn:hover {
   background-color: rgb(9, 37, 55);
   color: rgb(229, 229, 229);
 }
 
-.editBtn:hover {
+.editBtn:hover,
+.finishEditBtn:hover {
   text-decoration: 2rem underline rgb(9, 37, 55);
 }
 
@@ -226,4 +248,9 @@ li:hover {
   display: flex;
   align-items: center;
   gap: 30rem;
+}
+
+.edit-I {
+  width: 100%;
+  margin-bottom: 15rem;
 }

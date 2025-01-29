@@ -7,7 +7,7 @@ const title = document.querySelector(".title");
 const author = document.querySelector(".author");
 const pages = document.querySelector(".pages");
 const bookList = document.querySelector(".bookList");
-const form = document.querySelector("form");
+const currentForm = document.querySelector(".currentForm");
 const check = document.querySelector(".check");
 
 let titleText;
@@ -44,6 +44,13 @@ function cardCreator(parametar) {
   let isChecked = parametar;
   let isEditing = false;
 
+  const switchIsEditing = () => {
+    isEditing = !isEditing;
+    return isEditing;
+  };
+
+  const getIsEditing = () => isEditing;
+
   const getId = () => id;
 
   const switchIsChecked = () => {
@@ -55,8 +62,16 @@ function cardCreator(parametar) {
     return isChecked;
   };
 
-  return { getId, switchIsChecked, getIsChecked };
+  return {
+    getId,
+    switchIsChecked,
+    getIsChecked,
+    switchIsEditing,
+    getIsEditing,
+  };
 }
+
+const newCard = cardCreator();
 
 function cardManager() {
   let cardData = [];
@@ -113,7 +128,9 @@ bookList.addEventListener("click", (e) => {
 
   const id = card.id;
   const data = manager.getData().find((data) => data.getId() === id);
-  if (e.target.classList.contains("checkBtn")) {
+  const checkBtn = card.querySelector(".checkBtn");
+
+  if (e.target.closest(".checkBtn")) {
     data.switchIsChecked();
 
     data.getIsChecked()
@@ -124,9 +141,45 @@ bookList.addEventListener("click", (e) => {
     card.remove();
     manager.removeCard(id);
   }
+  if (e.target.closest(".editBtn")) {
+    newCard.switchIsEditing();
+
+    if (newCard.getIsEditing()) {
+      card.innerHTML = `
+    <button class="finishEditBtn">Finish Editing</button>
+    <form class="editingForm">
+      <input type="text" class="editedTitle edit-I" value="${titleText}" />
+      <input type="text" class="editedName edit-I" value="${authorName}" />
+      <input type="number" class="editedNum edit-I" value="${pagesNum}" />
+    </form>
+  `;
+    }
+  }
+  if (e.target.closest(".finishEditBtn")) {
+    const newTitle = card.querySelector(".editedTitle");
+    const newAuthor = card.querySelector(".editedName");
+    const newPages = card.querySelector(".editedNum");
+
+    newCard.switchIsEditing();
+
+    card.innerHTML = `
+      <button class="editBtn">Edit</button>
+      <div class="textDiv">
+        <p class="title-p">${newTitle.value}</p>
+        <p class="author-p">- ${newAuthor.value}</p>
+        <p class="pages-p">${newPages.value} pages</p>
+        <div class="cardBtns">
+          <button class="checkBtn">${
+            data.getIsChecked() ? "Read ✔️" : "Unread ❌"
+          }</button>
+          <button class="deleteBtn">Delete Book</button>
+        </div>
+      </div>
+    `;
+  }
 });
 
-form.addEventListener("submit", (e) => {
+currentForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const newCard = cardCreator(isInputChecked);
