@@ -39,10 +39,37 @@ btnX.addEventListener("click", () => {
   overlay.classList.add("hidden");
 });
 
-function cardCreator(parametar) {
+function cardCreator(parametar, title, author, pages) {
   let id = crypto.randomUUID();
   let isChecked = parametar;
   let isEditing = false;
+  let titleValue = title;
+  let authorValue = author;
+  let pagesValue = pages;
+
+  const setTitle = (value) => {
+    titleValue = value;
+  };
+
+  const getTitle = () => {
+    return titleValue;
+  };
+
+  const setAuthor = (value) => {
+    authorValue = value;
+  };
+
+  const getAuthor = () => {
+    return authorValue;
+  };
+
+  const setPages = (value) => {
+    pagesValue = value;
+  };
+
+  const getPages = () => {
+    return pagesValue;
+  };
 
   const switchIsEditing = () => {
     isEditing = !isEditing;
@@ -68,6 +95,12 @@ function cardCreator(parametar) {
     getIsChecked,
     switchIsEditing,
     getIsEditing,
+    setTitle,
+    getTitle,
+    setAuthor,
+    getAuthor,
+    setPages,
+    getPages,
   };
 }
 
@@ -105,20 +138,19 @@ function cardManager() {
 
 const manager = cardManager();
 
-function createCard(id, isChecked) {
+function createCard(id, isChecked, title, author, pages) {
   const card = document.createElement("li");
   card.id = id;
   card.classList.add("card");
   card.innerHTML = `
   <button class="editBtn">Edit</button>
-  <div class="textDiv"><p class="title-p"> ${titleText}</p>
-  <p class="author-p">- ${authorName}</p>
-  <p class="pages-p">${pagesNum} pages</p>
+  <div class="textDiv"><p class="title-p"> ${title}</p>
+  <p class="author-p">- ${author}</p>
+  <p class="pages-p">${pages} pages</p>
   <div class="cardBtns">
   <button class="checkBtn">${isChecked ? "Read ✔️" : "Unread ❌"}</button>
   <button class="deleteBtn">Delete Book</button></div>
   `;
-
   return card;
 }
 
@@ -142,32 +174,37 @@ bookList.addEventListener("click", (e) => {
     manager.removeCard(id);
   }
   if (e.target.closest(".editBtn")) {
-    newCard.switchIsEditing();
+    data.switchIsEditing();
 
-    if (newCard.getIsEditing()) {
+    if (data.getIsEditing()) {
       card.innerHTML = `
-    <button class="finishEditBtn">Finish Editing</button>
-    <form class="editingForm">
-      <input type="text" class="editedTitle edit-I" value="${titleText}" />
-      <input type="text" class="editedName edit-I" value="${authorName}" />
-      <input type="number" class="editedNum edit-I" value="${pagesNum}" />
-    </form>
-  `;
+        <button class="finishEditBtn">Finish Editing</button>
+        <form class="editingForm">
+          <input type="text" class="editedTitle edit-I" value="${data.getTitle()}" />
+          <input type="text" class="editedName edit-I" value="${data.getAuthor()}" />
+          <input type="number" class="editedNum edit-I" value="${data.getPages()}" />
+        </form>
+      `;
     }
   }
-  if (e.target.closest(".finishEditBtn")) {
-    const newTitle = card.querySelector(".editedTitle");
-    const newAuthor = card.querySelector(".editedName");
-    const newPages = card.querySelector(".editedNum");
 
-    newCard.switchIsEditing();
+  if (e.target.closest(".finishEditBtn")) {
+    const newTitle = card.querySelector(".editedTitle").value;
+    const newAuthor = card.querySelector(".editedName").value;
+    const newPages = card.querySelector(".editedNum").value;
+
+    data.setTitle(newTitle);
+    data.setAuthor(newAuthor);
+    data.setPages(newPages);
+
+    data.switchIsEditing();
 
     card.innerHTML = `
       <button class="editBtn">Edit</button>
       <div class="textDiv">
-        <p class="title-p">${newTitle.value}</p>
-        <p class="author-p">- ${newAuthor.value}</p>
-        <p class="pages-p">${newPages.value} pages</p>
+        <p class="title-p">${data.getTitle()}</p>
+        <p class="author-p">- ${data.getAuthor()}</p>
+        <p class="pages-p">${data.getPages()} pages</p>
         <div class="cardBtns">
           <button class="checkBtn">${
             data.getIsChecked() ? "Read ✔️" : "Unread ❌"
@@ -182,10 +219,16 @@ bookList.addEventListener("click", (e) => {
 currentForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const newCard = cardCreator(isInputChecked);
+  const newCard = cardCreator(isInputChecked, titleText, authorName, pagesNum);
   manager.addData(newCard);
 
-  const card = createCard(newCard.getId(), newCard.getIsChecked());
+  const card = createCard(
+    newCard.getId(),
+    newCard.getIsChecked(),
+    newCard.getTitle(),
+    newCard.getAuthor(),
+    newCard.getPages()
+  );
   bookList.appendChild(card);
 
   title.value = "";
