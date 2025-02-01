@@ -164,55 +164,57 @@ bookList.addEventListener("click", (e) => {
 
   if (e.target.closest(".checkBtn")) {
     data.switchIsChecked();
-
-    data.getIsChecked()
-      ? (checkBtn.textContent = "Read ✔️")
-      : (checkBtn.textContent = "Unread ❌");
+    checkBtn.textContent = data.getIsChecked() ? "Read ✔️" : "Unread ❌";
   }
+
   if (e.target.closest(".deleteBtn")) {
     card.remove();
     manager.removeCard(id);
   }
+
   if (e.target.closest(".editBtn")) {
     data.switchIsEditing();
 
     if (data.getIsEditing()) {
       card.innerHTML = `
-        <button class="finishEditBtn">Finish Editing</button>
         <form class="editingForm">
+          <button class="finishEditBtn" type="submit">Finish Editing</button>
           <input type="text" class="editedTitle edit-I" value="${data.getTitle()}" />
           <input type="text" class="editedName edit-I" value="${data.getAuthor()}" />
           <input type="number" class="editedNum edit-I" value="${data.getPages()}" />
         </form>
       `;
+
+      const editingForm = card.querySelector(".editingForm");
+
+      editingForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const newTitle = editingForm.querySelector(".editedTitle").value;
+        const newAuthor = editingForm.querySelector(".editedName").value;
+        const newPages = editingForm.querySelector(".editedNum").value;
+
+        data.setTitle(newTitle);
+        data.setAuthor(newAuthor);
+        data.setPages(newPages);
+        data.switchIsEditing();
+
+        card.innerHTML = `
+          <button class="editBtn">Edit</button>
+          <div class="textDiv">
+            <p class="title-p">${data.getTitle()}</p>
+            <p class="author-p">- ${data.getAuthor()}</p>
+            <p class="pages-p">${data.getPages()} pages</p>
+            <div class="cardBtns">
+              <button class="checkBtn">${
+                data.getIsChecked() ? "Read ✔️" : "Unread ❌"
+              }</button>
+              <button class="deleteBtn">Delete Book</button>
+            </div>
+          </div>
+        `;
+      });
     }
-  }
-
-  if (e.target.closest(".finishEditBtn")) {
-    const newTitle = card.querySelector(".editedTitle").value;
-    const newAuthor = card.querySelector(".editedName").value;
-    const newPages = card.querySelector(".editedNum").value;
-
-    data.setTitle(newTitle);
-    data.setAuthor(newAuthor);
-    data.setPages(newPages);
-
-    data.switchIsEditing();
-
-    card.innerHTML = `
-      <button class="editBtn">Edit</button>
-      <div class="textDiv">
-        <p class="title-p">${data.getTitle()}</p>
-        <p class="author-p">- ${data.getAuthor()}</p>
-        <p class="pages-p">${data.getPages()} pages</p>
-        <div class="cardBtns">
-          <button class="checkBtn">${
-            data.getIsChecked() ? "Read ✔️" : "Unread ❌"
-          }</button>
-          <button class="deleteBtn">Delete Book</button>
-        </div>
-      </div>
-    `;
   }
 });
 
