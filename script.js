@@ -154,6 +154,40 @@ function createCard(id, isChecked, title, author, pages) {
   return card;
 }
 
+function handleEditSubmit(e) {
+  const card = e.target.closest("li");
+  const id = card.id;
+  const data = manager.getData().find((data) => data.getId() === id);
+  e.preventDefault();
+  const editingForm = card.querySelector(".editingForm");
+
+  const newTitle = editingForm.querySelector(".editedTitle").value;
+  const newAuthor = editingForm.querySelector(".editedName").value;
+  const newPages = editingForm.querySelector(".editedNum").value;
+
+  data.setTitle(newTitle);
+  data.setAuthor(newAuthor);
+  data.setPages(newPages);
+  data.switchIsEditing();
+
+  card.innerHTML = `
+    <button class="editBtn">Edit</button>
+    <div class="textDiv">
+      <p class="title-p">${data.getTitle()}</p>
+      <p class="author-p">- ${data.getAuthor()}</p>
+      <p class="pages-p">${data.getPages()} pages</p>
+      <div class="cardBtns">
+        <button class="checkBtn">${
+          data.getIsChecked() ? "Read ✔️" : "Unread ❌"
+        }</button>
+        <button class="deleteBtn">Delete Book</button>
+      </div>
+    </div>
+  `;
+
+  editingForm.removeEventListener("submit", handleEditSubmit);
+}
+
 bookList.addEventListener("click", (e) => {
   const card = e.target.closest("li");
   if (!card) return;
@@ -187,33 +221,7 @@ bookList.addEventListener("click", (e) => {
 
       const editingForm = card.querySelector(".editingForm");
 
-      editingForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-
-        const newTitle = editingForm.querySelector(".editedTitle").value;
-        const newAuthor = editingForm.querySelector(".editedName").value;
-        const newPages = editingForm.querySelector(".editedNum").value;
-
-        data.setTitle(newTitle);
-        data.setAuthor(newAuthor);
-        data.setPages(newPages);
-        data.switchIsEditing();
-
-        card.innerHTML = `
-          <button class="editBtn">Edit</button>
-          <div class="textDiv">
-            <p class="title-p">${data.getTitle()}</p>
-            <p class="author-p">- ${data.getAuthor()}</p>
-            <p class="pages-p">${data.getPages()} pages</p>
-            <div class="cardBtns">
-              <button class="checkBtn">${
-                data.getIsChecked() ? "Read ✔️" : "Unread ❌"
-              }</button>
-              <button class="deleteBtn">Delete Book</button>
-            </div>
-          </div>
-        `;
-      });
+      editingForm.addEventListener("submit", handleEditSubmit);
     }
   }
 });
